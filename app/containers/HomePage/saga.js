@@ -1,17 +1,17 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, select } from "redux-saga/effects";
+import { getPokemon } from "./selector";
 
-export function* fetchPokemon(action) {
-  console.log("fuck");
-  //const pokemon = action.payload.name.toLowerCase();
-  const pokemon = "pikachu";
+export function* fetchPokemon() {
+  const pokemon = yield select(getPokemon);
+  console.log("fetching " + pokemon);
   const fetchURL = "https://pokeapi.co/api/v2/pokemon/" + pokemon;
   try {
     const response = yield fetch(fetchURL);
     const responseBody = yield response.json();
     console.log(responseBody);
-    yield put({type: "FETCH_SUCCEEDED", responseBody});
+    yield put({type: "FETCH_SUCCEEDED", payload: responseBody});
   } catch (error) {
-    yield put({type: "FETCH_FAILED", error})
+    yield put({type: "FETCH_FAILED", error: error})
   }
 }
 

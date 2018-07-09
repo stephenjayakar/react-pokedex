@@ -13,12 +13,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import injectSaga from "utils/injectSaga";
-import { RESTART_ON_REMOUNT } from "utils/constants";
 import saga from "./saga";
-import reducer from "./reducers";
+import injectReducer from "utils/injectReducer";
+import reducer from "./reducer";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { fetchPokemon } from "./actions";
+import { fetchPokemon, changePokemon } from "./actions";
+import PokeDetails from "../PokeDetails";
 
 export class HomePage extends React.PureComponent {
   render() {    
@@ -28,26 +29,50 @@ export class HomePage extends React.PureComponent {
         <h1>
           <FormattedMessage {...messages.header} />
         </h1>
-        <button
-          onClick={this.props.fetchPokemon}
-        >
-          meow
-        </button>
+        <form>
+          Pokemon
+          <input 
+            type="text" 
+            id="pokemon" 
+            value={this.props.pokemon}
+            style={{margin: 8, borderRadius: 2}} 
+            placeholder="pikachu"
+            onChange={this.props.onChangePokemon}
+          >
+          </input>
+          <button
+            type="button"
+            onClick={this.props.fetchPokemon}
+          >
+            fetch
+          </button>
+        </form>
+        <PokeDetails />
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchPokemon: evt => dispatch(fetchPokemon()),
+const mapStateToProps = (state) => ({
+  pokemon: state.pokemon,
 });
 
-const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  fetchPokemon: (evt) => {
+    dispatch(fetchPokemon());
+  },
+  onChangePokemon: (evt) => {
+    console.log(evt.target.value);
+    dispatch(changePokemon(evt.target.value));
+  }
+});
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withSaga = injectSaga({ key: "home", saga });
+const withReducer = injectReducer({ key: "home", reducer });
 
 export default compose(
+  withReducer,
   withSaga,
   withConnect,
 )(HomePage);
