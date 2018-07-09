@@ -12,14 +12,42 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import injectSaga from "utils/injectSaga";
+import { RESTART_ON_REMOUNT } from "utils/constants";
+import saga from "./saga";
+import reducer from "./reducers";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { fetchPokemon } from "./actions";
 
-/* eslint-disable react/prefer-stateless-function */
-export default class HomePage extends React.PureComponent {
-  render() {
+export class HomePage extends React.PureComponent {
+  render() {    
+    console.log("WTF");
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <h1>
+          <FormattedMessage {...messages.header} />
+        </h1>
+        <button
+          onClick={this.props.fetchPokemon}
+        >
+          meow
+        </button>
+      </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchPokemon: evt => dispatch(fetchPokemon()),
+});
+
+const mapStateToProps = () => ({});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withSaga = injectSaga({ key: "home", saga });
+
+export default compose(
+  withSaga,
+  withConnect,
+)(HomePage);
