@@ -5,10 +5,16 @@ import { connect } from "react-redux";
 class PokeDetails extends React.Component {
   render() {
     const pokeData = this.props.pokeData;
+    console.log(pokeData);
     if (pokeData) {
       return (
         <div>
           <p>{pokeData.name}</p>
+          <ul>
+            {pokeData.abilities.map((ability) => 
+              <li>{ability.ability.name}</li>
+            )}
+          </ul>
         </div>
       );
     } else {

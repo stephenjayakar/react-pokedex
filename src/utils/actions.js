@@ -1,10 +1,6 @@
-export const changePokemon = (name) => ({
-  type: "CHANGE_POKEMON",
-  name,
-})
-
-export const fetchPokemon = () => ({
+export const fetchPokemon = (name) => ({
   type: "FETCH_REQUESTED",
+  name,
 });
 
 export const fetchSucceeded = (payload) => ({
