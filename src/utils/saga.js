@@ -3,13 +3,12 @@ import { fetchSucceeded, fetchFailed } from "utils/actions";
 
 export function* fetchPokemon(action) {
   const pokemon = action.name;
-  const fetchURL = "https://pokeapi.co/api/v2/pokemon/" + pokemon;
+  const fetchURL = "https://pokeapi.co/api/v2/pokemon/" + pokemon;  
   try {
     const response = yield fetch(fetchURL);
     const responseBody = yield response.json();    
     yield put(fetchSucceeded(responseBody));
-  } catch (error) {
-    alert(error);
+  } catch (error) {    
     yield put(fetchFailed(error));
   }
 }

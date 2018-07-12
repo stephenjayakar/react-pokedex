@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 class PokeDetails extends React.Component {
   render() {
     const pokeData = this.props.pokeData;
-    console.log(pokeData);
     if (pokeData) {
       return (
         <div>
