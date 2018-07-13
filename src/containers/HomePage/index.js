@@ -26,6 +26,9 @@ export class HomePage extends React.Component {
   }
 
   render() {
+    const navText = {
+      color: this.state.collapsed ? "#00000000" : "white",
+    }
     return (
       <Layout style={styles.page}>
         <Sider
@@ -35,18 +38,28 @@ export class HomePage extends React.Component {
         >
           <div className="logo" style={styles.logo}>
             <img src={require("resources/pokeball.png")} style={styles.logoImg} />
-            <span style={styles.logoTitle}>
+            <span style={{
+              verticalAlign: "text-bottom",
+              fontSize: "16px",
+              display: "inline-block",
+              color: "white",
+              visibility: this.state.collapsed ? "hidden" : "visible",
+            }}>
               React Pokédex
             </span>
           </div>
           <Menu theme="dark" defaultSelectedKeys={["search"]}>
             <Menu.Item key="search">
               <Icon type="search" />
-              Search
+              <span style={navText}>
+                Search
+              </span>
             </Menu.Item>
             <Menu.Item key="favorites">
               <Icon type="heart" />
-              Favorites
+              <span style={navText}>
+                Favorites
+              </span>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -62,7 +75,6 @@ export class HomePage extends React.Component {
                     icon={this.state.collapsed ? "menu-unfold" : "menu-fold"}
                     onClick={this.toggle}
                     size="large"
-                    shape=""
                     style={{ border: 0 }}
                   />
                 </div>
@@ -113,12 +125,6 @@ const styles = {
   logoImg: {
     width: "65px",
     marginRight: "8px",
-  },
-  logoTitle: {
-    verticalAlign: "text-bottom",
-    fontSize: "16px",
-    display: "inline-block",
-    color: "white",
   },
   header: {
     backgroundColor: "#ffffff",
