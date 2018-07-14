@@ -1,13 +1,16 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { Spin } from "antd";
 
 class PokeDetails extends React.Component {
   render() {
     const pokeData = this.props.pokeData;
-    if (pokeData) {
+    const loading = this.props.loading;
+
+    if (pokeData) {      
       return (
-        <div>
+        <div style={{margin: 20}}>
           <p>{pokeData.name}</p>
           <ul>
             {pokeData.abilities.map((ability) => 
@@ -16,18 +19,21 @@ class PokeDetails extends React.Component {
           </ul>
         </div>
       );
-    } else {
+    } else if (loading) {
       return (
-        <div>
-          <p>Pokemon not fetched</p>
+        <div style={{margin: 20}}>
+          <Spin />
         </div>
       );
+    } else {
+      return <div></div>
     }
   }
 }
 
 const mapStateToProps = (state) => ({
-  pokeData: state.pokeData
+  pokeData: state.pokeData,
+  loading: state.loading,
 });
 const withConnect = connect(mapStateToProps, null);
 export default compose(withConnect)(PokeDetails);

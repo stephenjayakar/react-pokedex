@@ -15,77 +15,60 @@ import {
 import PokeDetails from "containers/PokeDetails";
 
 const { Header, Sider, Content } = Layout
+const { Item } = Menu;
 const HEADER_HEIGHT = 70;
 
 export class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { collapsed: false };
+  state = {
+    collapsed: false,
+  }
 
-    this.toggle = this.toggle.bind(this);
+  toggleCollapsed = (collapsed) => {  
+    console.log(collapsed);
+    this.setState({
+      collapsed: collapsed,
+    });
   }
 
   render() {
-    const navText = {
-      color: this.state.collapsed ? "#00000000" : "white",
-    }
-    return (
+    return (      
       <Layout style={styles.page}>
         <Sider
-          trigger={null}
-          collapsible="true"
+          collapsible
           collapsed={this.state.collapsed}
+          onCollapse={this.toggleCollapsed}
         >
           <div className="logo" style={styles.logo}>
             <img src={require("resources/pokeball.png")} style={styles.logoImg} />
             <span style={{
-              verticalAlign: "text-bottom",
               fontSize: "16px",
-              display: "inline-block",
               color: "white",
               visibility: this.state.collapsed ? "hidden" : "visible",
             }}>
               React Pokédex
             </span>
           </div>
-          <Menu theme="dark" defaultSelectedKeys={["search"]}>
-            <Menu.Item key="search">
+          <Menu
+            defaultSelectedKeys={["search"]}
+            theme="dark"
+          >
+            <Item key="search">
               <Icon type="search" />
-              <span style={navText}>
-                Search
-              </span>
-            </Menu.Item>
-            <Menu.Item key="favorites">
+              <span>Search</span>
+            </Item>
+            <Item key="favorites">
               <Icon type="heart" />
-              <span style={navText}>
-                Favorites
-              </span>
-            </Menu.Item>
+              <span>Favorites</span>
+            </Item>
           </Menu>
         </Sider>
 
         <Layout>
 
-          <Header style={styles.header}>
-            <Row>
-              <Col span={1}>
-                <div style={styles.trigger}>
-                  <Button
-                    className="trigger"
-                    icon={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-                    onClick={this.toggle}
-                    size="large"
-                    style={{ border: 0 }}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Header>
-
           <Content style={styles.content}>
             <Layout>
               <Row>
-                <Col span={12}>
+                <Col span={18}>
                   <div style={styles.searchForm}>
                     <h1>Pokedex</h1>
                     <Input.Search
@@ -102,10 +85,6 @@ export class HomePage extends React.Component {
         </Layout>
       </Layout>
     );
-  }
-
-  toggle() {
-    this.setState({ collapsed: !this.state.collapsed })
   }
 }
 
@@ -124,7 +103,11 @@ const styles = {
   },
   logoImg: {
     width: "65px",
-    marginRight: "8px",
+    margin: "auto",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   header: {
     backgroundColor: "#ffffff",
