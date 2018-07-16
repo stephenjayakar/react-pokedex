@@ -13,6 +13,7 @@ import {
 } from "antd";
 
 import PokeDetails from "containers/PokeDetails";
+import PokeCard from "containers/PokeCard";
 
 const { Header, Sider, Content } = Layout
 const { Item } = Menu;
@@ -68,7 +69,7 @@ export class HomePage extends React.Component {
           <Content style={styles.content}>
             <Layout>
               <Row>
-                <Col span={18}>
+                <Col span={16}>
                   <div style={styles.searchForm}>
                     <h1>Pokedex</h1>
                     <Input.Search
@@ -78,6 +79,10 @@ export class HomePage extends React.Component {
                     />
                     <PokeDetails />
                   </div>
+                </Col>
+                <Col span={8}>
+                  <PokeCard>
+                  </PokeCard>
                 </Col>
               </Row>
             </Layout>
