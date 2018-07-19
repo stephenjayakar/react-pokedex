@@ -137,7 +137,10 @@ const styles = {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPokemon: (value) => {
-    dispatch(fetchPokemon(value));
+    value = value.trim();
+    if (value) {
+      dispatch(fetchPokemon(value));
+    }
   },
 });
 

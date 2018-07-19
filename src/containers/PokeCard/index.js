@@ -1,27 +1,38 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Card } from "antd";
+import { Card, Spin } from "antd";
 
+import TypeButton from "components/TypeButton";
 import { getPokemonImgURL } from "utils/PokemonAPI.js";
 
 const { Meta } = Card;
 
 class PokeCard extends React.Component {
   render() {
-    console.log("Card Render");
     const pokeData = this.props.pokeData;
+    const loading = this.props.loading;
+
     if (pokeData) {
       return (
-        <Card
+      <Card
           hoverable
-          cover={<img alt="example" src={getPokemonImgURL(pokeData.id)} />}
-        >
+          cover={<img src={getPokemonImgURL(pokeData.id)} />}
+          style={styles.card}
+      >
           <Meta
             title={pokeData.name}
-            description={pokeData.types.map((type) => (type.type.name + " "))}
+            description={pokeData.types.map((type) => (<TypeButton typeName={type.type.name} />))}
           />
-        </Card>
+      </Card>
+      );
+    } else if (loading) {
+      return (
+        <Card
+          loading={loading}
+          hoverable
+          style={styles.card}
+        ></Card>
       );
     } else {
       return <div></div>
@@ -29,8 +40,15 @@ class PokeCard extends React.Component {
   }
 }
 
+const styles = {
+  card: {
+    marginTop: 16,
+  }
+}
+
 const mapStateToProps = (state) => ({
   pokeData: state.pokeData,
+  loading: state.loading,
 });
 
 const withConnect = connect(mapStateToProps, null);

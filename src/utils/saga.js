@@ -6,9 +6,12 @@ export function* fetchPokemon(action) {
   const fetchURL = "https://pokeapi.co/api/v2/pokemon/" + pokemon;  
   try {
     const response = yield fetch(fetchURL);
-    const responseBody = yield response.json();    
+    if (response.status !== 200) {
+      throw "Pokemon not found";
+    }
+    const responseBody = yield response.json();  
     yield put(fetchSucceeded(responseBody));
-  } catch (error) {    
+  } catch (error) {        
     yield put(fetchFailed(error));
   }
 }
