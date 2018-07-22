@@ -6,7 +6,12 @@ const TypeButton = ({ typeName }) => {
     backgroundColor: typeColors[typeName],
   };
   return (
-    <Tag color={typeColors[typeName]}>{typeName}</Tag>
+    <Tag 
+      color={typeColors[typeName]}
+      style={styles.typeButton}
+    >
+      {typeName}
+    </Tag>
   );
 /*
   return (
@@ -19,8 +24,7 @@ const TypeButton = ({ typeName }) => {
 
 const styles = {
   typeButton: {
-    width: 70, 
-    height: 30,
+    textShadow: "1px 1px 2px #00000070",
   }
 }
 
