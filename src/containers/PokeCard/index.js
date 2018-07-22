@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Card, Spin } from "antd";
+import { Card, Spin, Button } from "antd";
 
 import TypeButton from "components/TypeButton";
 import { getPokemonImgURL } from "utils/PokemonAPI.js";
@@ -9,9 +9,20 @@ import { getPokemonImgURL } from "utils/PokemonAPI.js";
 const { Meta } = Card;
 
 class PokeCard extends React.Component {
+  state = {
+    favorite: false,
+  }
+
+  toggleFavorite = () => {
+    this.setState({
+      favorite: !this.state.favorite,
+    });
+  }
+
   render() {
     const pokeData = this.props.pokeData;
     const loading = this.props.loading;
+    const favorite = this.state.favorite;
 
     if (pokeData) {
       return (
@@ -20,10 +31,23 @@ class PokeCard extends React.Component {
           cover={<img src={getPokemonImgURL(pokeData.id)} />}
           style={styles.card}
       >
-          <Meta
+        <Meta
             title={pokeData.name}
-            description={pokeData.types.map((type) => (<TypeButton typeName={type.type.name} />))}
-          />
+            description={
+              <span>
+                {pokeData.types.map((type) => (<TypeButton typeName={type.type.name} />))}
+                <Button 
+                  icon="heart" 
+                  style={{
+                    float: "right", 
+                    color: favorite ? "red" : "#60606050"
+                  }}
+                  shape="circle"
+                  onClick={this.toggleFavorite}
+                />
+              </span>
+            }
+        />
       </Card>
       );
     } else if (loading) {

@@ -18,14 +18,14 @@ import PokeCard from "containers/PokeCard";
 const { Header, Sider, Content } = Layout
 const { Item } = Menu;
 const HEADER_HEIGHT = 70;
+const MOBILE = window.innerWidth < 650;
 
 export class HomePage extends React.Component {
   state = {
-    collapsed: false,
+    collapsed: MOBILE,
   }
 
-  toggleCollapsed = (collapsed) => {  
-    console.log(collapsed);
+  toggleCollapsed = (collapsed) => {
     this.setState({
       collapsed: collapsed,
     });
@@ -69,7 +69,7 @@ export class HomePage extends React.Component {
           <Content style={styles.content}>
             <Layout>
               <Row>
-                <Col span={16}>
+                <Col span={MOBILE ? 24 : 16}>
                   <div style={styles.searchForm}>
                     <h1>Pokedex</h1>
                     <Input.Search
@@ -80,7 +80,7 @@ export class HomePage extends React.Component {
                     <PokeDetails />
                   </div>
                 </Col>
-                <Col span={8}>
+                <Col span={MOBILE ? 18 : 8}>
                   <PokeCard>
                   </PokeCard>
                 </Col>
