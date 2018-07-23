@@ -9,13 +9,12 @@ import {
   Icon,
   Row,
   Col,
-  Button,
 } from "antd";
 
 import PokeDetails from "containers/PokeDetails";
 import PokeCard from "containers/PokeCard";
 
-const { Header, Sider, Content } = Layout
+const { Sider, Content } = Layout
 const { Item } = Menu;
 const HEADER_HEIGHT = 70;
 const MOBILE = window.innerWidth < 650;
@@ -40,7 +39,7 @@ export class HomePage extends React.Component {
           onCollapse={this.toggleCollapsed}
         >
           <div className="logo" style={styles.logo}>
-            <img src={require("resources/pokeball.png")} style={styles.logoImg} />
+            <img src={require("resources/pokeball.png")} style={styles.logoImg} alt="pokeball" />
             <span style={{
               fontSize: "16px",
               color: "white",

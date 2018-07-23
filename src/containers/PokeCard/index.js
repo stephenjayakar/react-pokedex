@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Card, Spin, Button } from "antd";
+import { Card, Button } from "antd";
 
 import TypeButton from "components/TypeButton";
 import { getPokemonImgURL } from "utils/PokemonAPI.js";
@@ -28,7 +28,7 @@ class PokeCard extends React.Component {
       return (
       <Card
           hoverable
-          cover={<img src={getPokemonImgURL(pokeData.id)} />}
+          cover={<img src={getPokemonImgURL(pokeData.id)} alt="pokemon"/>}
           style={styles.card}
       >
         <Meta

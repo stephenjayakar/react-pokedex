@@ -7,7 +7,7 @@ export function* fetchPokemon(action) {
   try {
     const response = yield fetch(fetchURL);
     if (response.status !== 200) {
-      throw "Pokemon not found";
+      throw new Error("Pokemon not found");
     }
     const responseBody = yield response.json();  
     yield put(fetchSucceeded(responseBody));

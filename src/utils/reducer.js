@@ -7,7 +7,7 @@ const reducer = (state = {}, action) => {
     case "FETCH_SUCCEEDED":
       return { ...state, pokeData: action.payload, loading: false, };
     case "FETCH_FAILED":
-      message.error(action.error);
+      message.error("Pokemon fetch failed!");
       return { ...state, pokeData: null, loading: false };
     default:
       return state

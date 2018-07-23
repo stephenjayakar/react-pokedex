@@ -2,9 +2,6 @@ import React from "react";
 import { Tag } from "antd";
 
 const TypeButton = ({ typeName }) => {
-  const localStyle = {
-    backgroundColor: typeColors[typeName],
-  };
   return (
     <Tag 
       color={typeColors[typeName]}
