@@ -1,24 +1,32 @@
+export const toFavorites = () => ({
+  type: 'TO_FAVORITES'
+});
+
+export const toSearch = () => ({
+  type: 'TO_SEARCH'
+});
+
 export const fetchPokemon = (name) => ({
-  type: "FETCH_REQUESTED",
+  type: 'FETCH_REQUESTED',
   name,
 });
 
 export const fetchSucceeded = (payload) => ({
-  type: "FETCH_SUCCEEDED",
+  type: 'FETCH_SUCCEEDED',
   payload,
 });
 
 export const fetchFailed = (error) => ({
-  type: "FETCH_FAILED",
+  type: 'FETCH_FAILED',
   error,
 });
 
 export const addFavorite = (name) => ({
-  type: "ADD_FAVORITE",
+  type: 'ADD_FAVORITE',
   name
 });
 
 export const removeFavorite = (name) => ({
-  type: "REMOVE_FAVORITE",
+  type: 'REMOVE_FAVORITE',
   name
 });
