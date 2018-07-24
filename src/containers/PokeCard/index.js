@@ -10,31 +10,29 @@ import { addFavorite, removeFavorite } from "utils/actions";
 const { Meta } = Card;
 
 class PokeCard extends React.Component {
-  state = {
-    favorite: false,
-  }
-
   toggleFavorite = () => {
-    if (!this.state.favorite) {
+    if (!this.favorite()) {
       this.props.addFavorite(this.props.pokeData.name);
     } else {
       this.props.removeFavorite(this.props.pokeData.name);
     }
-    this.setState({
-      favorite: !this.state.favorite,
-    });
+  }
+
+  favorite = () => {
+    const pokeData = this.props.pokeData;
+    const favorites = this.props.favorites;
+
+    if (pokeData) {
+      return favorites.has(pokeData.name);
+    }
   }
 
   render() {
     const pokeData = this.props.pokeData;
     const loading = this.props.loading;
-    const favorite = this.state.favorite;
-    const favorites = this.props.favorites;
+    const favorite = this.favorite();
 
     if (pokeData && !loading) {
-      if (!favorite && favorites.has(pokeData.name)) {
-        this.setState({favorite: true});
-      }
       return (
       <Card
           hoverable
@@ -61,9 +59,6 @@ class PokeCard extends React.Component {
       </Card>
       );
     } else if (loading) {
-      if (favorite) {
-        this.setState({favorite: false});
-      }
       return (
         <Card
           loading={loading}
