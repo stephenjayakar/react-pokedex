@@ -5,16 +5,15 @@ import { Spin } from "antd";
 
 class PokeDetails extends React.Component {
   render() {
-    const pokeData = this.props.pokeData;
     const loading = this.props.loading;
+    const favorites = this.props.favorites;
 
-    if (pokeData) {      
+    if (favorites) {      
       return (
         <div style={{margin: 20}}>
-          <p>{pokeData.name}</p>
           <ul>
-            {pokeData.abilities.map((ability) => 
-              <li>{ability.ability.name}</li>
+            {favorites.map((name) => 
+              <li>{name}</li>
             )}
           </ul>
         </div>
@@ -32,7 +31,7 @@ class PokeDetails extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  pokeData: state.pokeData,
+  favorites: [...state.favorites],
   loading: state.loading,
 });
 const withConnect = connect(mapStateToProps, null);

@@ -5,6 +5,7 @@ import { Card, Button } from "antd";
 
 import TypeButton from "components/TypeButton";
 import { getPokemonImgURL } from "utils/PokemonAPI.js";
+import { addFavorite, removeFavorite } from "utils/actions";
 
 const { Meta } = Card;
 
@@ -14,6 +15,11 @@ class PokeCard extends React.Component {
   }
 
   toggleFavorite = () => {
+    if (!this.state.favorite) {
+      this.props.addFavorite(this.props.pokeData.name);
+    } else {
+      this.props.removeFavorite(this.props.pokeData.name);
+    }
     this.setState({
       favorite: !this.state.favorite,
     });
@@ -23,8 +29,12 @@ class PokeCard extends React.Component {
     const pokeData = this.props.pokeData;
     const loading = this.props.loading;
     const favorite = this.state.favorite;
+    const favorites = this.props.favorites;
 
-    if (pokeData) {
+    if (pokeData && !loading) {
+      if (!favorite && favorites.has(pokeData.name)) {
+        this.setState({favorite: true});
+      }
       return (
       <Card
           hoverable
@@ -35,7 +45,7 @@ class PokeCard extends React.Component {
             title={pokeData.name}
             description={
               <span>
-                {pokeData.types.map((type) => (<TypeButton typeName={type.type.name} />))}
+                {pokeData.types.map((typeObj) => (<TypeButton typeName={typeObj.type.name} />))}
                 <Button 
                   icon="heart" 
                   style={{
@@ -51,6 +61,9 @@ class PokeCard extends React.Component {
       </Card>
       );
     } else if (loading) {
+      if (favorite) {
+        this.setState({favorite: false});
+      }
       return (
         <Card
           loading={loading}
@@ -73,9 +86,19 @@ const styles = {
 const mapStateToProps = (state) => ({
   pokeData: state.pokeData,
   loading: state.loading,
+  favorites: state.favorites,
 });
 
-const withConnect = connect(mapStateToProps, null);
+const mapDispatchToProps = (dispatch) => ({
+  addFavorite: (name) => {
+    dispatch(addFavorite(name));
+  },
+  removeFavorite: (name) => {
+    dispatch(removeFavorite(name));
+  },
+})
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(PokeCard);
 
