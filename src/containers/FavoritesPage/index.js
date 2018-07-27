@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Card, Table } from 'antd';
 
+import { getPokemonIconImgURL } from 'utils/PokemonAPI';
 import { FAVORITES_PATH } from 'utils/constants';
 
 class FavoritesPage extends React.Component {
@@ -13,14 +14,17 @@ class FavoritesPage extends React.Component {
 
     const dataSource = Object.keys(favorites).map(
       (name) => ({
-        name: name
+        name: name,
       })      
     );
 
     const columns = [{
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      key: 'name',   
+      render: (text, record, index) => (
+        <div><img src={getPokemonIconImgURL(text)} alt="icon" />{text}</div>
+      )
     }]
 
     if (currentPath && currentPath !== FAVORITES_PATH) {
