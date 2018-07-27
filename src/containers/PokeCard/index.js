@@ -22,8 +22,8 @@ class PokeCard extends React.Component {
     const pokeData = this.props.pokeData;
     const favorites = this.props.favorites;
 
-    if (pokeData) {
-      return favorites.has(pokeData.name);
+    if (pokeData && favorites) {
+      return pokeData.name in favorites;
     }
   }
 
