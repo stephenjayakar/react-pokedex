@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Layout, Menu, Icon } from 'antd';
@@ -50,13 +50,13 @@ class AppLayout extends React.Component {
             defaultSelectedKeys={['search']}
             theme='dark'
             onClick={({ item, key, keyPath }) => {
-              switch(key) {
+              switch (key) {
                 case 'search':
                   toSearch();
                   break;
                 case 'favorites':
                   toFavorites();
-                  break;      
+                  break;
                 default:
                   alert(`something went wrong with key ${key}`);
               }
@@ -74,12 +74,13 @@ class AppLayout extends React.Component {
         </Sider>
 
         <Layout>
-
           <Content style={styles.content}>
-            <Switch>
-              <Route exact path='/' component={SearchPage} />
-              <Route path='/favorites' component={FavoritesPage} />
-            </Switch>
+            <BrowserRouter>
+              <Switch>
+                <Route exact path='/' component={SearchPage} />
+                <Route path='/favorites' component={FavoritesPage} />
+              </Switch>
+            </BrowserRouter>
           </Content>
         </Layout>
       </Layout>

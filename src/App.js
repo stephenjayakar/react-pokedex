@@ -4,7 +4,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga';
-import { BrowserRouter } from 'react-router-dom';
 
 import AppLayout from 'containers/AppLayout';
 
@@ -17,9 +16,7 @@ sagaMiddleware.run(rootSaga);
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter>
-      <AppLayout />
-    </BrowserRouter>
+    <AppLayout />
   </Provider>
 );
 

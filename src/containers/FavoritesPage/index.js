@@ -10,7 +10,7 @@ class FavoritesPage extends React.Component {
   render() {
     const currentPath = this.props.currentPath;
 
-    if (currentPath !== FAVORITES_PATH) {
+    if (currentPath && currentPath !== FAVORITES_PATH) {
       console.log(currentPath);
       return <Redirect to={currentPath} />
     }

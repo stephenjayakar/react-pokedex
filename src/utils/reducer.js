@@ -4,7 +4,7 @@ import { FAVORITES_PATH, SEARCH_PATH } from 'utils/constants';
 
 const defaultState = {
   favorites: new Set(),
-  currentPage: 'search',
+  currentPage: SEARCH_PATH,
 }
 
 const reducer = (state=defaultState, action) => {

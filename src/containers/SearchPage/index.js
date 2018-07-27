@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 
 import { SEARCH_PATH } from 'utils/constants';
 import { fetchPokemon } from 'utils/actions';
-import PokeDetails from 'containers/PokeDetails';
 import PokeCard from 'containers/PokeCard';
 
 class SearchPage extends React.Component {
@@ -15,7 +14,7 @@ class SearchPage extends React.Component {
     const fetchPokemon = this.props.fetchPokemon;
     const currentPath = this.props.currentPath;
 
-    if (currentPath !== SEARCH_PATH) {
+    if (currentPath && currentPath !== SEARCH_PATH) {
       console.log(currentPath);
       return <Redirect to={currentPath} />
     }
