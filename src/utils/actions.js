@@ -21,9 +21,9 @@ export const fetchFailed = (error) => ({
   error,
 });
 
-export const addFavorite = (name) => ({
+export const addFavorite = (pokeData) => ({
   type: 'ADD_FAVORITE',
-  name
+  pokeData
 });
 
 export const removeFavorite = (name) => ({

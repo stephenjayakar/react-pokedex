@@ -21,8 +21,9 @@ const reducer = (state=defaultState, action) => {
       message.error('Pokemon fetch failed!');
       return { ...state, pokeData: null, loading: false };
     case 'ADD_FAVORITE': {
+      const pokeData = action.pokeData;      
       const newFavorite = {};
-      newFavorite[action.name] = {id: 2};
+      newFavorite[pokeData.name] = {id: pokeData.id, types: pokeData.types};
       const favorites = {...state.favorites, ...newFavorite};      
       console.log(favorites);
       return { ...state, favorites: favorites};

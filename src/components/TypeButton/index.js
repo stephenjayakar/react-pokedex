@@ -21,7 +21,7 @@ const TypeButton = ({ typeName }) => {
 
 const styles = {
   typeButton: {
-    textShadow: "1px 1px 2px #00000070",
+    textShadow: "2px 2px 2px #00000070",
   }
 }
 

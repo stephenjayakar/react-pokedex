@@ -12,7 +12,7 @@ const { Meta } = Card;
 class PokeCard extends React.Component {
   toggleFavorite = () => {
     if (!this.favorite()) {
-      this.props.addFavorite(this.props.pokeData.name);
+      this.props.addFavorite(this.props.pokeData);
     } else {
       this.props.removeFavorite(this.props.pokeData.name);
     }
@@ -43,7 +43,7 @@ class PokeCard extends React.Component {
             title={pokeData.name}
             description={
               <span>
-                {pokeData.types.map((typeObj) => (<TypeButton typeName={typeObj.type.name} />))}
+                {pokeData.types.map((typeObj) => (<TypeButton key={typeObj.type.name} typeName={typeObj.type.name} />))}
                 <Button 
                   icon="heart" 
                   style={{
@@ -85,8 +85,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addFavorite: (name) => {
-    dispatch(addFavorite(name));
+  addFavorite: (pokeData) => {
+    dispatch(addFavorite(pokeData));
   },
   removeFavorite: (name) => {
     dispatch(removeFavorite(name));
