@@ -8,11 +8,11 @@ import { PURGE } from 'redux-persist';
 import { SEARCH_PATH } from 'utils/constants';
 import { fetchPokemon } from 'utils/actions';
 import PokeCard from 'containers/PokeCard';
+import SearchForm from 'containers/SearchForm';
 
 class SearchPage extends React.Component {
   render() {
     const MOBILE = this.props.mobile;
-    const fetchPokemon = this.props.fetchPokemon;
     const currentPath = this.props.currentPath;
     const purge = this.props.purge;
 
@@ -26,21 +26,15 @@ class SearchPage extends React.Component {
         <Row>
           <Col span={MOBILE ? 24 : 16}>
             <Row>
-              <div style={styles.searchForm}>
-                <h1>Search</h1>
-                <Input.Search
-                  enterButton={true}
-                  onSearch={fetchPokemon}
-                />
-                <Button 
-                  type='danger'
-                  style={{'marginTop': 8}}
-                  onClick={purge}
-                  icon='api'
-                  size='large'
-                  shape='circle'
-                />                  
-              </div>
+              <SearchForm />
+              <Button 
+                type='danger'
+                style={{'marginTop': 8}}
+                onClick={purge}
+                icon='api'
+                size='large'
+                shape='circle'
+              />             
             </Row>
           </Col>
           <Col span={MOBILE ? 18 : 8}>
@@ -53,26 +47,11 @@ class SearchPage extends React.Component {
   }
 }
 
-const styles = {
-  searchForm: {
-    margin: 16,
-    padding: 16,
-    backgroundColor: 'white',
-  },
-}
-
 const mapStateToProps = (state) => ({
   currentPath: state.currentPath,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPokemon: (value) => {
-    value = value.trim();
-    value = value.toLowerCase();
-    if (value) {
-      dispatch(fetchPokemon(value));
-    }
-  },
   purge: () => {
     dispatch({type: PURGE, result: ()=>(console.log('purged'))});
   }

@@ -40,7 +40,7 @@ class PokeCard extends React.Component {
           style={styles.card}
       >
         <Meta
-            title={pokeData.name}
+            title={pokeData.name + ' #' + pokeData.id}
             description={
               <span>
                 {pokeData.types.map((typeObj) => (<TypeButton key={typeObj.type.name} typeName={typeObj.type.name} />))}
